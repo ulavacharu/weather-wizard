@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asul&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Weather Wizard</title>
+</head>
+
+<body class="bg-[#B3E8E5] ">
+    <!-- Header -->
+    <div class="h-24 w-screen border-bottom bg-[#2F8F9D] flex justify-start content-center">
+        <img id="logo-top" class=" ml-4 rounded-full" src="media/logo.jpeg" alt="logo"><span id="heading"
+            class="self-center p-4 text-4xl sm:text-6xl ml-4 sm:ml-[25%] md:ml-[30%]">Weather Wizard</span>
+    </div>
+    <!-- Main Content -->
+    <div class="main  w-screen ">
+        <!-- Weather Cards bg-[#6998AB]-->
+        <div id="weather" class="h-auto  w-[95%] ml-[10px] sm:ml-[2.5vw] mt-4  opacity-60 shadow-xl border-[1px] border-slate-600 flex flex-wrap justify-evenly">
+            <!-- Search part [Left/Top] -->
+            <div class="h-96 m-4 w-64 sm:w-96 bg-transparent rounded flex flex-wrap justify-center" id="left-card" >
+                <form id="one" class="w-72 h-80  items-center rounded flex flex-wrap flex-col justify-center self-center">
+                    <input type="text" placeholder="Enter Location..." class="w-[100%] h-[30px] rounded ring-4 self-bottom self-center " id="user-location" required/>
+                    <div class="flex w-72 h-auto flex-nowrap justify-evenly" id="btn-container">
+                        <button type="button" id="clrBtn" class=" bg-[white] px-4 py-2 rounded-lg ring" onclick="clearEverything()">Clear</button>
+                        <button type="button" id="subBtn" class=" bg-[white] px-4 py-1 rounded-lg ring" onclick="getLoc()">Enter </button>
+                    </div>
+                </form>
+                
+            </div>
+            <!-- Result part [Right/Down] -->
+            <div class="h-80 m-4 w-64 sm:w-96 self-center rounded-xl px-4 bg-[#0b757a] text-white" id="right-card">
+                <div class="self-center top-4 left-4 relative">
+                    <!-- Location, Temparature,Image -->
+                    <h3 title="Location" class="py-4 cursor-pointer font-bold text-xl sm:text-3xl"><span id="result-city">-------</span><span class="text-xs sm:text-base font-bold" id="result-ext-city"></span></h3>
+                    <h3 title="Temperature" class="pb-4 cursor-pointer font-bold text-lg sm:text-2xl"><span id="result-temp">--</span>°C</h3>
+                    <img id="result-icon"  src="#" alt="--">
+                    <!-- Description, Humidity,Wind Speed -->
+                    <h5 title="Description" class="py-2 font-medium text-lg"><span id="result-desc">-----</span></h5>
+                    <h5 title="Humidity" class="py-2 font-medium text-lg">Humidity: <span id="result-humid">--</span>%</h5>
+                    <h5 title="Wind speed" class="py-2 font-medium text-lg">Wind Speed: <span id="result-wind">--</span>km/h</h5>
+                </div>
+            </div>
+        </div>
+        <!-- Major Cities -->
+            <center><div id="display-error" class="w-[90%] my-4 bg-[#FBCEB1]"><div  class="my-4  w-[90%] sm:w-[95%] h-16 rounded-xl flex justify-center align-center"></div></div></center>
+            <div class="flex select-none h-auto  w-[95%] ml-[10px] sm:ml-[2.5vw] mt-4 opacity-60 flex-wrap justify-start content-center">
+                    
+                    <div onclick="customLoc('Hyderabad,India')" class="m-4 ml-6 cursor-pointer p-4 border-slate-600 shadow-xl border-2 h-80 w-80 bg-[#AFEEEE] flex self-center justify-center"><img  class="h-64 w-64 self-center " src="media/Hyderabad.svg" alt="Hyderabad"></div>
+                    <div onclick="customLoc('Mumbai,India')"    class="m-4 ml-6 cursor-pointer p-4 border-slate-600 shadow-xl border-2 h-80 w-80 bg-[#AFEEEE] flex self-center justify-center"><img src="media/Mumbai.svg" class="h-64 w-64 self-center" alt="Mumbai"></div>
+                    <div onclick="customLoc('Kolkata,India')"   class="m-4 ml-6 cursor-pointer p-4 border-slate-600 shadow-xl border-2 h-80 w-80 bg-[#AFEEEE] flex self-center justify-center"><img src="media/Kolkata.svg" alt="Kolkata" class="h-64 w-64 self-center "></div>
+                    <div onclick="customLoc('Chennai,India')"   class="m-4 ml-6 cursor-pointer p-4 border-slate-600 shadow-xl border-2 h-80 w-80 bg-[#AFEEEE] flex self-center justify-center"><img src="media/Chennai.svg" alt="Chennai" class="h-64 w-64 self-center "></div>
+                    <div onclick="customLoc('Bangalore,India')" class="m-4 ml-6 cursor-pointer p-4 border-slate-600 shadow-xl border-2 h-80 w-80 bg-[#AFEEEE] flex self-center justify-center"><img src="media/Bangalore.svg" alt="Bangalore" class="h-64 w-64 self-center "></div>
+                    <div onclick="customLoc('Delhi,India')"     class="m-4 ml-6 cursor-pointer p-4 border-slate-600 shadow-xl border-2 h-80 w-80 bg-[#AFEEEE] flex self-center justify-center"><img src="media/Delhi.svg" alt="Delhi" class="h-64 w-64 self-center "></div>
+            </div>
+            
+                <center>
+                <button type="button" id="final-button" class=" bg-[white] px-4 py-1 rounded-lg ring " onclick="callChart()">Show Weekly Data</button>
+                <section id="final-div" >
+                    <button type="button" class="mt-4 bg-[white] px-4 py-1 rounded-lg ring " onclick="updateChart()">Update Chart</button>
+                    <div id="chart-container" class="m-4 sm:m-28  sm:mt-8  p-4  rounded-lg">
+                        <canvas id="chart" ></canvas>
+                    </div>
+                </section>
+                </center>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>    
+    <script  type="module" src="/index.js"></script>
+
+</body>
+
+</html>
