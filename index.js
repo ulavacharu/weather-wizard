@@ -67,7 +67,7 @@ let weeklyData={};
 let weekMaxTemperature,weekWindSpeed,weekHumidity;
 async function weeklyOpen() {
     try {
-        let weeklyClientId="857c0aa283617b6512bc96195a81d783";
+        let weeklyClientId=process.env.w_open_key;
         let weekly_endpoint=`https://api.openweathermap.org/data/2.5/onecall?units=metric&exclude=hourly,minutely,current&lat=${lat}&lon=${long}&appid=${weeklyClientId}`;
         const response = await fetch(weekly_endpoint);
         weeklyData = await response.json();
